@@ -24,10 +24,11 @@ class AuthenticationAuthorizationTest extends TestCase
         $this->assertGuest();
     }
 
-    public function test_student_cannot_open_user_administration(): void
+    public function test_student_cannot_open_user_or_student_administration(): void
     {
         $student = User::factory()->create(['role' => 'mahasiswa']);
         $this->actingAs($student)->get(route('users.index'))->assertForbidden();
+        $this->get(route('mahasiswa.index'))->assertForbidden();
     }
 
     public function test_admin_can_open_user_administration(): void
