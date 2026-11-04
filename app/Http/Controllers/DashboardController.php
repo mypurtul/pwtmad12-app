@@ -2,18 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Dosen;
+use App\Models\Mahasiswa;
+use App\Models\MataKuliah;
+
 class DashboardController extends Controller
 {
     public function index()
     {
-        $jumlahMahasiswa = 5;
-        $jumlahDosen = 3;
-        $jumlahMataKuliah = 6;
-
-        return view('dashboard', compact(
-            'jumlahMahasiswa',
-            'jumlahDosen',
-            'jumlahMataKuliah'
-        ));
+        return view('dashboard', ['jumlahMahasiswa' => Mahasiswa::count(), 'jumlahDosen' => Dosen::count(), 'jumlahMataKuliah' => MataKuliah::count()]);
     }
 }
