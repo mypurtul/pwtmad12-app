@@ -1,3 +1,1 @@
-<header class="navbar">
-    SIAKAD - Sistem Informasi Akademik
-</header>
+<header class="navbar navbar-dark bg-primary px-3 px-lg-4 py-3 d-flex justify-content-between"><a class="navbar-brand fw-semibold mb-0" href="{{ route('dashboard') }}">SIAKAD - Sistem Informasi Akademik</a><div class="d-flex align-items-center gap-3 text-white"><span class="small d-none d-sm-inline">{{ auth()->user()->name }} · {{ ucfirst(auth()->user()->role) }}</span><form action="{{ route('logout') }}" method="POST">@csrf<button class="btn btn-outline-light btn-sm" type="submit">Logout</button></form></div></header>
