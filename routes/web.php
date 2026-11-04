@@ -16,13 +16,19 @@ Route::middleware('auth')->group(function (): void {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::get('/', fn () => redirect()->route('dashboard'));
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::middleware('role:admin,dosen,mahasiswa')->group(function (): void {
+
+    // Daftar mahasiswa memuat data pribadi; batasi ke staf akademik.
+    Route::middleware('role:admin,dosen')->group(function (): void {
         Route::get('/mahasiswa', [MahasiswaController::class, 'index'])->name('mahasiswa.index');
         Route::get('/tampilmahasiswa', [MahasiswaController::class, 'tampil'])->name('mahasiswa.tampil');
         Route::get('/detilmahasiswa/{id}', [MahasiswaController::class, 'detil'])->name('mahasiswa.detil');
         Route::get('/datamahasiswa', [MahasiswaController::class, 'data'])->name('mahasiswa.data');
+    });
+
+    Route::middleware('role:admin,dosen,mahasiswa')->group(function (): void {
         Route::get('/matakuliah', [MataKuliahController::class, 'index'])->name('matakuliah.index');
     });
+
     Route::middleware('role:admin')->group(function (): void {
         Route::resource('dosen', DosenController::class)->except(['show']);
         Route::resource('users', UserController::class)->except(['show']);
